@@ -1,0 +1,38 @@
+#!/bin/bash
+while getopts :qwer opt
+do
+	case $opt in
+		q)
+			agents=()
+			echo -n "Add meg az agent nevét"
+			read AGENT
+			echo -n "add meg hány abilitye van"
+			read abilities
+			echo -n "Az agent neme"
+			read NEM
+			agents=("$AGENT" "$abilities" "$NEM")
+			filename='agents.txt'
+        		if [ -f "$filename" ];
+        		then
+                		printf "%s:%s:%s\n" "${agents[@]}" >>agents.txt
+        		else
+                		echo "Név:Abilities:Nem" >>agents.txt
+                		printf "%s:%s:%s\n" "${agents[@]}" >>agents.txt
+        		fi
+			;;
+		w)
+			echo "masodik opció"
+			;;
+		e)
+			echo "harmadik opció"
+			;;
+		r)
+			echo "negyedik opció"
+			;;
+		?)
+			echo "nem ismert opció: $OPTARG"
+			;;
+
+	esac
+
+done
