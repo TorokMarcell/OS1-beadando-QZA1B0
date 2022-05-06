@@ -1,14 +1,14 @@
 #!/bin/bash
-while getopts :qwer opt
+while getopts :qwe opt
 do
 	case $opt in
 		q)
 			agents=()
-			echo -n "Add meg az agent nevét"
+			echo -n "Add meg az agent nevét: "
 			read AGENT
-			echo -n "add meg hány abilitye van"
+			echo -n "add meg hány abilitye van: "
 			read abilities
-			echo -n "Az agent neme"
+			echo -n "Az agent neme: (0)nő/(1)férfi"
 			read NEM
 			agents=("$AGENT" "$abilities" "$NEM")
 			filename='agents.txt'
@@ -21,13 +21,23 @@ do
         		fi
 			;;
 		w)
-			echo "masodik opció"
+			echo -n "Milyen nemre szeretnél szűrni?"
+			read milyen_nem
+			while IFS=':' read -r agent abilities nem
+			do
+
+				if [ "$milyen_nem" == "férfi" ];
+				then
+
+					grep -c "1"
+				else
+					grep -c "0"
+				fi
+			done < agents.txt
 			;;
 		e)
-			echo "harmadik opció"
-			;;
-		r)
-			echo "negyedik opció"
+			echo "Az öszes agent listájának letöltése :"
+			curl -L "https://drive.google.com/uc?export=download&id=1rmqM5-SI_99-PjVSdnXXnHmLWcvAiere" -o agent_nevek.zip
 			;;
 		?)
 			echo "nem ismert opció: $OPTARG"
